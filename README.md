@@ -101,22 +101,22 @@ Three operations:
 
 ```bash
 # Replace a single line
-HLINE_FILE=/etc/nginx/nginx.conf hsed replace 6#XJ << 'EOF'
+hsed /etc/nginx/nginx.conf replace 6#XJ << 'EOF'
     listen 443 ssl;
 EOF
 
 # Replace a range
-HLINE_FILE=/etc/nginx/nginx.conf hsed replace 6#XJ 7#MB << 'EOF'
+hsed /etc/nginx/nginx.conf replace 6#XJ 7#MB << 'EOF'
     listen 443 ssl;
     server_name new.example.com;
 EOF
 
 # Delete lines (empty content)
-HLINE_FILE=/etc/nginx/nginx.conf hsed replace 6#XJ 7#MB << 'EOF'
+hsed /etc/nginx/nginx.conf replace 6#XJ 7#MB << 'EOF'
 EOF
 
 # Insert after a line
-HLINE_FILE=/etc/nginx/nginx.conf hsed append 9#TN << 'EOF'
+hsed /etc/nginx/nginx.conf append 9#TN << 'EOF'
 
     location /api {
         proxy_pass http://127.0.0.1:3000;
@@ -124,7 +124,7 @@ HLINE_FILE=/etc/nginx/nginx.conf hsed append 9#TN << 'EOF'
 EOF
 
 # Insert before a line
-HLINE_FILE=/etc/nginx/nginx.conf hsed prepend 5#VK << 'EOF'
+hsed /etc/nginx/nginx.conf prepend 5#VK << 'EOF'
 # Managed by hline
 EOF
 ```
