@@ -186,3 +186,76 @@ hcat file.conf -B 2 -A 3 5  # Line 5 + 2 before + 3 after
 ## License
 
 MIT
+
+## AI Agent Integration
+
+A ready-to-use skill for AI agents is available at [`hline-usage/SKILL.md`](hline-usage/SKILL.md). Drop it into your agent's skill directory to teach it how to use hline.
+
+### Hermes Agent
+
+```bash
+mkdir -p ~/.hermes/skills/devops/hline-usage
+cp hline-usage/SKILL.md ~/.hermes/skills/devops/hline-usage/
+```
+
+Hermes auto-discovers skills from `~/.hermes/skills/`. The skill will be available next session.
+
+### Claude Code
+
+```bash
+# Global (available in all projects)
+mkdir -p ~/.claude/skills/hline-usage
+cp hline-usage/SKILL.md ~/.claude/skills/hline-usage/
+
+# Or project-scoped
+mkdir -p .claude/skills/hline-usage
+cp hline-usage/SKILL.md .claude/skills/hline-usage/
+```
+
+Skills in `.claude/skills/` are invoked with `/hline-usage` or auto-activated by Claude Code.
+
+### OpenCode
+
+```bash
+# Global
+mkdir -p ~/.config/opencode/skills/hline-usage
+cp hline-usage/SKILL.md ~/.config/opencode/skills/hline-usage/
+
+# Or project-scoped (also supports .agents/skills/ and .claude/skills/)
+mkdir -p .opencode/skills/hline-usage
+cp hline-usage/SKILL.md .opencode/skills/hline-usage/
+```
+
+OpenCode discovers skills from `.opencode/skills/`, `.agents/skills/`, and `.claude/skills/`. Agents load skills on-demand via the `skill` tool.
+
+### OpenAI Codex
+
+```bash
+# Global (available in all projects)
+mkdir -p ~/.agents/skills/hline-usage
+cp hline-usage/SKILL.md ~/.agents/skills/hline-usage/
+
+# Or project-scoped
+mkdir -p .agents/skills/hline-usage
+cp hline-usage/SKILL.md .agents/skills/hline-usage/
+```
+
+Codex auto-discovers skills from `.agents/skills/` directories. Invoke with `$hline-usage`.
+
+### OpenClaw
+
+```bash
+# Global (managed skills)
+mkdir -p ~/.openclaw/skills/hline-usage
+cp hline-usage/SKILL.md ~/.openclaw/skills/hline-usage/
+
+# Or workspace-scoped
+mkdir -p skills/hline-usage
+cp hline-usage/SKILL.md skills/hline-usage/
+```
+
+OpenClaw uses [AgentSkills](https://agentskills.io/)-compatible skill folders. The skill will be available next session.
+
+### Cursor / Windsurf / Other Editors
+
+Copy `hline-usage/SKILL.md` content into your project's `.cursorrules` or equivalent instruction file.

@@ -186,3 +186,76 @@ hcat file.conf -B 2 -A 3 5  # 第 5 行 + 前 2 后 3
 ## License
 
 MIT
+
+## AI Agent 集成
+
+面向 AI Agent 的使用指南见 [`hline-usage/SKILL.md`](hline-usage/SKILL.md)，可直接放入 agent 的 skill 目录使用。
+
+### Hermes Agent
+
+```bash
+mkdir -p ~/.hermes/skills/devops/hline-usage
+cp hline-usage/SKILL.md ~/.hermes/skills/devops/hline-usage/
+```
+
+Hermes 自动发现 `~/.hermes/skills/` 下的 skill，下次会话生效。
+
+### Claude Code
+
+```bash
+# 全局（所有项目可用）
+mkdir -p ~/.claude/skills/hline-usage
+cp hline-usage/SKILL.md ~/.claude/skills/hline-usage/
+
+# 或项目级
+mkdir -p .claude/skills/hline-usage
+cp hline-usage/SKILL.md .claude/skills/hline-usage/
+```
+
+`.claude/skills/` 下的 skill 可通过 `/hline-usage` 调用或自动激活。
+
+### OpenCode
+
+```bash
+# 全局
+mkdir -p ~/.config/opencode/skills/hline-usage
+cp hline-usage/SKILL.md ~/.config/opencode/skills/hline-usage/
+
+# 或项目级（也支持 .agents/skills/ 和 .claude/skills/）
+mkdir -p .opencode/skills/hline-usage
+cp hline-usage/SKILL.md .opencode/skills/hline-usage/
+```
+
+OpenCode 从 `.opencode/skills/`、`.agents/skills/`、`.claude/skills/` 发现 skill，agent 按需通过 `skill` 工具加载。
+
+### OpenAI Codex
+
+```bash
+# 全局（所有项目可用）
+mkdir -p ~/.agents/skills/hline-usage
+cp hline-usage/SKILL.md ~/.agents/skills/hline-usage/
+
+# 或项目级
+mkdir -p .agents/skills/hline-usage
+cp hline-usage/SKILL.md .agents/skills/hline-usage/
+```
+
+Codex 自动发现 `.agents/skills/` 目录下的 skill，使用 `$hline-usage` 调用。
+
+### OpenClaw
+
+```bash
+# 全局（managed skills）
+mkdir -p ~/.openclaw/skills/hline-usage
+cp hline-usage/SKILL.md ~/.openclaw/skills/hline-usage/
+
+# 或 workspace 级
+mkdir -p skills/hline-usage
+cp hline-usage/SKILL.md skills/hline-usage/
+```
+
+OpenClaw 使用兼容 [AgentSkills](https://agentskills.io/) 的 skill 目录，下次会话生效。
+
+### Cursor / Windsurf / 其他编辑器
+
+将 `hline-usage/SKILL.md` 内容复制到项目的 `.cursorrules` 或对应的指令文件中。
