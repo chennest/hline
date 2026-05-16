@@ -3,6 +3,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/chennest/hline.svg)](https://github.com/chennest/hline/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8.svg)](https://go.dev)
+[![Downloads](https://img.shields.io/github/downloads/chennest/hline/total.svg)](https://github.com/chennest/hline/releases)
 
 **[English](README.md)**
 
