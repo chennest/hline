@@ -24,6 +24,8 @@ archives:
     builds:
       - hcat
       - hsed
+    files:
+      - none*
     formats:
       - tar.gz
 
