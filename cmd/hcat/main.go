@@ -9,6 +9,8 @@ import (
 	"github.com/chennest/hline/internal/parse"
 )
 
+var version = "dev"
+
 func main() {
 	var afterN, beforeN int
 	var nonFlagArgs []string
@@ -42,6 +44,9 @@ func main() {
 			beforeN = n
 		case args[i] == "-h" || args[i] == "--help":
 			printUsage()
+		case args[i] == "-v" || args[i] == "--version":
+			fmt.Println("hcat", version)
+			os.Exit(0)
 		default:
 			nonFlagArgs = append(nonFlagArgs, args[i])
 		}
@@ -106,8 +111,10 @@ func main() {
 func printUsage() {
 	fmt.Fprintln(os.Stderr, "Usage: hcat [flags] <file> [range]")
 	fmt.Fprintln(os.Stderr, "  flags:")
-	fmt.Fprintln(os.Stderr, "    -A N    show N lines after target")
-	fmt.Fprintln(os.Stderr, "    -B N    show N lines before target")
+	fmt.Fprintln(os.Stderr, "    -A N          show N lines after target")
+	fmt.Fprintln(os.Stderr, "    -B N          show N lines before target")
+	fmt.Fprintln(os.Stderr, "    -h, --help    show this help")
+	fmt.Fprintln(os.Stderr, "    -v, --version show version")
 	fmt.Fprintln(os.Stderr, "  range: 5-10  |  5 +10  |  5")
 	fmt.Fprintln(os.Stderr)
 	fmt.Fprintln(os.Stderr, "  hcat file 5-10            # lines 5-10")

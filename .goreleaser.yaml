@@ -1,0 +1,62 @@
+version: 2
+
+project_name: hline
+
+builds:
+  - id: hcat
+    binary: hcat
+    main: ./cmd/hcat
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+  - id: hsed
+    binary: hsed
+    main: ./cmd/hsed
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+
+archives:
+  - name_template: >-
+      hline-
+      {{- if eq .Os "darwin" }}macos{{- else }}{{ .Os }}{{- end }}-
+      {{- .Arch }}
+    builds:
+      - hcat
+      - hsed
+    formats:
+      - tar.gz
+
+nfpms:
+  - package_name: hline
+    builds:
+      - hcat
+      - hsed
+    file_name_template: >-
+      hline_{{ .Version }}_
+      {{- if eq .Os "linux" }}linux{{- end }}_
+      {{- .Arch }}
+    maintainer: chennest
+    description: Hash-anchored CLI tools for AI-friendly file viewing and editing
+    homepage: https://github.com/chennest/hline
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - archlinux
+    contents:
+      - src: ./hcat
+        dst: /usr/local/bin/hcat
+      - src: ./hsed
+        dst: /usr/local/bin/hsed
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^ci:"
+      - "^chore:"

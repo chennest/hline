@@ -11,18 +11,22 @@ import (
 	"github.com/chennest/hline/internal/parse"
 )
 
+var version = "dev"
+
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Usage: hsed <operation> [anchor [anchor2]]")
-		fmt.Fprintln(os.Stderr, "  operation: replace | append | prepend")
-		fmt.Fprintln(os.Stderr, "  anchor:    LINE#HASH  (e.g. 5#VKM)")
-		fmt.Fprintln(os.Stderr, "  new content from stdin (heredoc)")
-		fmt.Fprintln(os.Stderr)
-		fmt.Fprintln(os.Stderr, "  hsed replace 5#VKM << 'EOF'")
-		fmt.Fprintln(os.Stderr, "  hsed replace 5#VKM 10#ABC << 'EOF'")
-		fmt.Fprintln(os.Stderr, "  hsed append 5#VKM << 'EOF'")
-		fmt.Fprintln(os.Stderr, "  hsed prepend 5#VKM << 'EOF'")
-		os.Exit(1)
+		printUsage()
+	}
+
+	// 全局标志
+	for _, arg := range os.Args[1:] {
+		if arg == "-h" || arg == "--help" {
+			printUsage()
+		}
+		if arg == "-v" || arg == "--version" {
+			fmt.Println("hsed", version)
+			os.Exit(0)
+		}
 	}
 
 	// 解析操作类型
@@ -108,6 +112,22 @@ func main() {
 		fmt.Fprintln(os.Stderr, "ERROR:", result.Message)
 		os.Exit(1)
 	}
+}
+
+func printUsage() {
+	fmt.Fprintln(os.Stderr, "Usage: hsed [flags] <operation> [anchor [anchor2]]")
+	fmt.Fprintln(os.Stderr, "  flags:")
+	fmt.Fprintln(os.Stderr, "    -h, --help    show this help")
+	fmt.Fprintln(os.Stderr, "    -v, --version show version")
+	fmt.Fprintln(os.Stderr, "  operation: replace | append | prepend")
+	fmt.Fprintln(os.Stderr, "  anchor:    LINE#HASH  (e.g. 5#VK)")
+	fmt.Fprintln(os.Stderr, "  new content from stdin (heredoc)")
+	fmt.Fprintln(os.Stderr)
+	fmt.Fprintln(os.Stderr, "  hsed replace 5#VK << 'EOF'")
+	fmt.Fprintln(os.Stderr, "  hsed replace 5#VK 10#AB << 'EOF'")
+	fmt.Fprintln(os.Stderr, "  hsed append 5#VK << 'EOF'")
+	fmt.Fprintln(os.Stderr, "  hsed prepend 5#VK << 'EOF'")
+	os.Exit(1)
 }
 
 func readStdin() (string, error) {
