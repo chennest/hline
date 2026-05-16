@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8.svg)](https://go.dev)
 [![Downloads](https://img.shields.io/github/downloads/chennest/hline/total.svg)](https://github.com/chennest/hline/releases)
+[![Stars](https://img.shields.io/github/stars/chennest/hline.svg)](https://github.com/chennest/hline/stargazers)
 
 **[English](README.md)**
 
