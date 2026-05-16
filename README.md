@@ -30,6 +30,9 @@ curl -sL https://github.com/chennest/hline/releases/latest/download/hline-macos-
 
 # macOS amd64 (Intel)
 curl -sL https://github.com/chennest/hline/releases/latest/download/hline-macos-amd64.tar.gz | sudo tar xz -C /usr/local/bin
+
+# China (use ghfast proxy)
+curl -sL https://ghfast.top/https://github.com/chennest/hline/releases/latest/download/hline-linux-amd64.tar.gz | sudo tar xz -C /usr/local/bin
 ```
 
 ### Package Install
