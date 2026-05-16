@@ -44,11 +44,6 @@ nfpms:
       - deb
       - rpm
       - archlinux
-    contents:
-      - src: ./hcat
-        dst: /usr/local/bin/hcat
-      - src: ./hsed
-        dst: /usr/local/bin/hsed
 
 checksum:
   name_template: "checksums.txt"
