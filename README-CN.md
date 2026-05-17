@@ -183,6 +183,10 @@ hcat file.conf -B 2 -A 3 5  # 第 5 行 + 前 2 后 3
 | 依赖 | Bun 运行时 | Bun + OpenCode | **无** |
 | 编辑接口 | Agent 工具调用 (JSON) | Agent 工具调用 (JSON) | **Stdin (heredoc)** |
 
+## 致谢
+
+感谢 [LINUX DO](https://linux.do) 开源社区。
+
 ## License
 
 MIT

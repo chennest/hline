@@ -183,6 +183,10 @@ hcat file.conf -B 2 -A 3 5  # Line 5 + 2 before + 3 after
 | Dependencies | Bun runtime | Bun + OpenCode | **None** |
 | Edit interface | Agent tool call (JSON) | Agent tool call (JSON) | **Stdin (heredoc)** |
 
+## Acknowledgments
+
+Thanks to the [LINUX DO](https://linux.do) open source community.
+
 ## License
 
 MIT
