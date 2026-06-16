@@ -88,6 +88,24 @@ EOF
 ⚠️ Range anchors must be ascending (end after start).
 ⚠️ If edit content contains `EOF`, use a different delimiter like `ENDOFEDIT`.
 
+### batch — atomic multi-edit (one SSH call, all-or-nothing)
+
+Apply multiple edits in one call. Segments separated by `---` (trailing `---` optional).
+
+```bash
+hsed /path/to/file batch << 'EOF'
+replace 11#XJ
+new content
+---
+append 13#QR
+inserted after
+EOF
+```
+
+- Atomic: any hash mismatch or conflict → file unchanged, exit 1
+- Conflicts auto-detected: overlapping replace ranges or append/prepend inside a replace range
+- `---` separates segments; trailing `---` optional; `-p` for dry-run
+
 ## Typical Workflow
 
 1. `hcat /etc/nginx/nginx.conf` — view file with anchors
@@ -101,3 +119,4 @@ EOF
 2. **EOF on its own line** — Terminator must have no leading/trailing whitespace.
 3. **Range order** — End anchor must be after start anchor.
 4. **-A/-B need space** — `-A 3` ✓, `-A3` ✗.
+5. **batch reject** — In batch mode, any segment's hash mismatch or conflict rejects the entire batch; no partial writes.

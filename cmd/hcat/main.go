@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/chennest/hline/internal/hash"
 	"github.com/chennest/hline/internal/parse"
@@ -122,39 +123,19 @@ func printUsage() {
 	os.Exit(1)
 }
 
+// splitLines 必须与 internal/edit 的 splitLines 保持一致：两者算 hash 的行内容定义相同。
+// 剥离所有换行符（\r\n、孤立 \r、\n）以确保 CRLF 文件也能正确往返。
 func splitLines(content string) []string {
 	if content == "" {
 		return nil
 	}
-	content = trimRightNewlines(content)
-	if content == "" {
+	normalized := strings.ReplaceAll(content, "\r\n", "\n")
+	normalized = strings.ReplaceAll(normalized, "\r", "\n")
+	normalized = strings.TrimRight(normalized, "\n")
+	if normalized == "" {
 		return nil
 	}
-	var lines []string
-	for _, line := range split(content, '\n') {
-		lines = append(lines, line)
-	}
-	return lines
-}
-
-func trimRightNewlines(s string) string {
-	for len(s) > 0 && (s[len(s)-1] == '\n' || s[len(s)-1] == '\r') {
-		s = s[:len(s)-1]
-	}
-	return s
-}
-
-func split(s string, sep byte) []string {
-	var parts []string
-	start := 0
-	for i := 0; i < len(s); i++ {
-		if s[i] == sep {
-			parts = append(parts, s[start:i])
-			start = i + 1
-		}
-	}
-	parts = append(parts, s[start:])
-	return parts
+	return strings.Split(normalized, "\n")
 }
 
 func resolveRange(r parse.Range, totalLines int) (int, int) {

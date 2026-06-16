@@ -131,6 +131,32 @@ hsed /etc/nginx/nginx.conf prepend 5#VK << 'EOF'
 EOF
 ```
 
+### 批量编辑（原子）
+
+一次 SSH 调用完成多处修改，全有全无语义。任一 hash 不匹配或冲突检测失败时，文件不会被改动。
+
+```bash
+hsed /etc/nginx/nginx.conf batch << 'EOF'
+replace 6#XJ
+    listen 443 ssl;
+---
+append 9#TN
+
+    location /api {
+        proxy_pass http://127.0.0.1:3000;
+    }
+---
+prepend 5#VK
+# Managed by hline
+EOF
+```
+
+- **原子性** — 任一 hash 不匹配或冲突 → 文件不变，exit 1
+- **冲突检测** — replace 范围不能重叠；append/prepend 目标不能落在 replace 区间内
+- **`-p`** 同单条操作，支持 dry-run 预览
+
+末尾 `---` 可选。空 replace 内容 = 删除对应行。
+
 ### Hash 校验
 
 每次编辑时，`hsed` 会重新计算目标行的 hash：

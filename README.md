@@ -131,6 +131,32 @@ hsed /etc/nginx/nginx.conf prepend 5#VK << 'EOF'
 EOF
 ```
 
+### Batch Edits (Atomic)
+
+Apply multiple changes in a single SSH call with all-or-nothing semantics. If any hash mismatches or conflicts are detected, the file stays untouched.
+
+```bash
+hsed /etc/nginx/nginx.conf batch << 'EOF'
+replace 6#XJ
+    listen 443 ssl;
+---
+append 9#TN
+
+    location /api {
+        proxy_pass http://127.0.0.1:3000;
+    }
+---
+prepend 5#VK
+# Managed by hline
+EOF
+```
+
+- **Atomic** — any hash mismatch or conflict → file unchanged, exit 1
+- **Conflict detection** — replace ranges can't overlap; append/prepend targets can't fall inside a replaced range
+- **`-p`** works as usual for dry-run preview
+
+Trailing `---` is optional. Empty replace content deletes the matching lines.
+
 ### Hash Validation
 
 On every edit, `hsed` recomputes the hash for the target line(s):
